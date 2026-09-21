@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using System.IdentityModel.Tokens.Jwt;
 using BookQuoteApp.Api.Models;
 using BookQuoteApp.Api.DTOs;
 using BookQuoteApp.Api.Services;
@@ -47,6 +49,16 @@ namespace BookQuoteApp.Api.Controllers
                 return Unauthorized(new { message = ("Invalid email or password") });
             var token = _tokenService.GenerateToken(user);
             return Ok(new { token = token });
+        }
+        [Authorize]
+        [HttpGet("me")]
+        public IActionResult Me()
+        {
+            var userId = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
+            var email = User.FindFirst(JwtRegisteredClaimNames.Email)?.Value;
+            var name = User.FindFirst("name")?.Value;
+
+            return Ok(new { userId, email, name });
         }
     }
 }
