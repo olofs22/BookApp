@@ -1,0 +1,44 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+        <h2 class="mb-0">
+            <i class="fa-solid fa-book"></i> Books
+        </h2>
+        <a routerLink="/books/add" class="brt btn-success">
+            <i class="fa-solid fa-plus"></i> Add a new book
+        </a> 
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Publisher</th>
+                    <th>Publish date</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let book of books">
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.authorName }}</td>
+                    <td>{{ book.publisherName || '-' }}</td>
+                    <td>{{ book.publishDate | date:'yyyy-MM-dd' }}</td>
+                    <td class="text-end">
+                        <a [routerLink]="['/books/edit', book.id]" class="btn btn-sm btn-outline-primary me-2">
+                            <i class="fa-solid fa-pen"></i>Edit
+                        </a>
+                        <button (click)="deleteBooks(book.id)" class="btn btn-sm btn-outline-danger">
+                            <i class="fa-solid fa-trash"></i> Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p *ngIf="books.length === 0" class="text-center text-muted py-4">
+            No books added yet
+        </p>
+    </div>
+
+</div>
