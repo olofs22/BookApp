@@ -20,7 +20,7 @@ export class BookService {
     }
 
     getById(id: number) {
-        return this.http.get<Book[]>(`${this.apiUrl}/${id}`);
+        return this.http.get<Book>(`${this.apiUrl}/${id}`);
     }
 
     create(data: { title: string; authorName: string; publisherName: string | null; publishDate: string;}) {
