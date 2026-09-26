@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 export interface Quote {
   id: number;
   text: string;
+  bookid: number;
   authorName: string;
   bookTitle: string;
   uploadTime: string;
