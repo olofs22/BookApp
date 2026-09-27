@@ -15,7 +15,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins("http://localhost:4200", "https://icy-stone-056cf8d0f.3.azurestaticapps.ne")
         .AllowAnyHeader()
         .AllowAnyMethod();
     });
