@@ -27,6 +27,12 @@ namespace BookQuoteApp.Api.Data
                 .HasForeignKey(b => b.PublisherId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Book>()
+                .HasOne(b => b.User)
+                .WithMany()
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Quote>()
                 .HasOne(q => q.Book)
                 .WithMany(b => b.Quotes)
