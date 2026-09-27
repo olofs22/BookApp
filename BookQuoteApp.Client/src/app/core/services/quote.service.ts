@@ -13,7 +13,7 @@ export interface Quote {
 
 @Injectable({ providedIn: 'root' })
 export class QuoteService {
-  private readonly apiUrl = `${environment.apiUrl}/auth`;
+  private readonly apiUrl = `${environment.apiUrl}/quotes`;
 
   constructor(private http: HttpClient) {}
 

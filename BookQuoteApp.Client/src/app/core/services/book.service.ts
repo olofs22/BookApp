@@ -12,7 +12,7 @@ export interface Book {
 
 @Injectable({providedIn: 'root'})
 export class BookService {
-    private readonly apiUrl = `${environment.apiUrl}/auth`;
+    private readonly apiUrl = `${environment.apiUrl}/books`;
 
     constructor(private http: HttpClient) {}
 
