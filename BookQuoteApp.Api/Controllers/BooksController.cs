@@ -33,7 +33,8 @@ namespace BookQuoteApp.Api.Controllers
                 Title = b.Title,
                 AuthorName = b.Author.Name,
                 PublisherName = b.Publisher != null ? b.Publisher.Name : null,
-                PublishDate = b.PublishDate
+                PublishDate = b.PublishDate,
+                UserId = b.UserId
             }).ToList();
 
             return Ok(bookDtos);
@@ -52,7 +53,8 @@ namespace BookQuoteApp.Api.Controllers
                 Title = book.Title,
                 AuthorName = book.Author.Name,
                 PublisherName = book.Publisher != null ? book.Publisher.Name : null,
-                PublishDate = book.PublishDate
+                PublishDate = book.PublishDate,
+                UserId = book.UserId
             };
 
             return Ok(bookDTO); 
