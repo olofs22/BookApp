@@ -1,46 +1,51 @@
 <div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-        <h2 class="mb-0">
-            <i class="fa-solid fa-book"></i> Books
-        </h2>
-        <a routerLink="/books/add" class="brt btn-success">
-            <i class="fa-solid fa-plus"></i> Add a new book
-        </a> 
-    </div>
 
-    <div class="table-responsive">
-        <table class="table table-striped align-middle">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Publisher</th>
-                    <th>Publish date</th>
-                    <th class="text-end">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let book of books">
-                    <td>{{ book.title }}</td>
-                    <td>{{ book.authorName }}</td>
-                    <td>{{ book.publisherName || '-' }}</td>
-                    <td>{{ book.publishDate | date:'yyyy-MM-dd' }}</td>
-                    <td class="text-end">
-                            <ng-container *ngIf="isOwner(book)">
-                            <a [routerLink]="['/books/edit', book.id]" class="btn btn-sm btn-outline-primary me-2">
-                                <i class="fa-solid fa-pen"></i>Edit
-                            </a>
-                            <button (click)="deleteBooks(book.id)" class="btn btn-sm btn-outline-danger">
-                                <i class="fa-solid fa-trash"></i> Delete
-                            </button>
-                        </ng-container>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <p *ngIf="books.length === 0" class="text-center text-muted py-4">
-            No books added yet
-        </p>
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <h2 class="mb-0">
+      <i class="fa-solid fa-book"></i> Books
+    </h2>
+    <a routerLink="/books/add" class="btn btn-success">
+      <i class="fa-solid fa-plus"></i> Add new book
+    </a>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let book of books">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ book.title }}</h5>
+          <p class="card-subtitle text-muted mb-2">
+            <i class="fa-solid fa-feather"></i> {{ book.authorName }}
+          </p>
+          <p class="card-text small text-muted mb-1">
+            <i class="fa-solid fa-building"></i> {{ book.publisherName || 'Inget förlag angivet' }}
+          </p>
+          <p class="card-text small text-muted mb-3">
+            <i class="fa-solid fa-calendar"></i> {{ book.publishDate | date: 'yyyy-MM-dd' }}
+          </p>
+
+          <div class="mt-auto">
+            <ng-container *ngIf="isOwner(book)">
+              <div class="d-flex flex-wrap gap-2">
+                <a [routerLink]="['/books/edit', book.id]" class="btn btn-sm btn-outline-primary">
+                  <i class="fa-solid fa-pen"></i> Edit
+                </a>
+                <button (click)="deleteBook(book.id)" class="btn btn-sm btn-outline-danger">
+                  <i class="fa-solid fa-trash"></i> Delete
+                </button>
+              </div>
+            </ng-container>
+            <span *ngIf="!isOwner(book)" class="text-muted small">
+              <i class="fa-solid fa-lock"></i> Not your book
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <p *ngIf="books.length === 0" class="text-center text-muted py-4">
+    No books added yet.
+  </p>
 
 </div>
