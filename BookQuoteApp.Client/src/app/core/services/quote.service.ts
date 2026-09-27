@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environments';
 
 export interface Quote {
   id: number;
@@ -12,7 +13,7 @@ export interface Quote {
 
 @Injectable({ providedIn: 'root' })
 export class QuoteService {
-  private readonly apiUrl = 'http://localhost:5199/api/quotes';
+  private readonly apiUrl = `${environment.apiUrl}/auth`;
 
   constructor(private http: HttpClient) {}
 

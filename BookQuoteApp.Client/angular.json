@@ -14,7 +14,7 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
-        "build": {
+        "build": {  "defaultConfiguration": "production",
           "builder": "@angular/build:application",
           "options": {
             "browser": "src/main.ts",
@@ -39,7 +39,12 @@
             ]
           },
           "configurations": {
-            "production": {
+            "production": {"fileReplacements": [
+      {
+        "replace": "src/environments/environment.ts",
+        "with": "src/environments/environment.prod.ts"
+      }
+    ],
               "budgets": [
                 {
                   "type": "initial",
