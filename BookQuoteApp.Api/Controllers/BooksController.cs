@@ -98,7 +98,8 @@ namespace BookQuoteApp.Api.Controllers
                 Title = book.Title,
                 AuthorName = author.Name,
                 PublisherName = publisher?.Name,
-                PublishDate = book.PublishDate
+                PublishDate = book.PublishDate,
+                UserId = book.UserId
             };
 
             return CreatedAtAction(nameof(GetById), new { id = book.Id }, bookDto);
