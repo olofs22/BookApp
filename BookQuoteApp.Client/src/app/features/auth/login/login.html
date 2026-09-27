@@ -1,0 +1,42 @@
+<div class="auth-wrapper container-fluid d-flex justify-content-center align-items-center px-3" >
+ <div class="auth-card card shadow-sm p-4 w-100">
+    <h2 class="text-center mb-4">
+        <i class="fa-solid fa-book"></i> Log in
+    </h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class mb-3>
+        <label for="email" class="form-label">Email</label>
+        <input 
+        id="email"
+        type="email"
+        class="form-control"
+        formControlName="email"
+    />
+    </div>
+
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input 
+        id="password"
+        type="password"
+        class="form-control"
+        formControlName="password"
+        />
+    </div>
+
+    <div class="alert alert-danger py-2" *ngIf="errorMessage">
+        {{errorMessage}}
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100" [disabled]=""loginForm.invalid>
+        <i class="fa-solid fa-right-to-bracket"></i> Log in
+    </button>
+
+    <p class="text-center mt-3 mb-0">
+        No Account? <a routerLink="/register">Register here!</a>
+    </p>
+    
+    </form>
+ </div>
+</div>

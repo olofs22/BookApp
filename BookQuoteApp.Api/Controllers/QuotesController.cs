@@ -39,6 +39,7 @@ namespace BookQuoteApp.Api.Controllers
             {
                 Id = q.Id,
                 Text = q.Text,
+                BookId = q.BookId,
                 AuthorName = q.Author.Name,
                 BookTitle = q.Book.Title,
                 UploadTime = q.UploadTime,
@@ -63,6 +64,7 @@ namespace BookQuoteApp.Api.Controllers
             {
                 Id = quote.Id,
                 Text = quote.Text,
+                BookId = quote.BookId, 
                 AuthorName = quote.Author.Name,
                 BookTitle = quote.Book.Title,
                 UploadTime = quote.UploadTime
@@ -103,6 +105,7 @@ namespace BookQuoteApp.Api.Controllers
             {
                 Id = quote.Id,
                 Text = quote.Text,
+                BookId = quote.BookId,
                 AuthorName = author.Name,
                 BookTitle = book!.Title,
                 UploadTime = quote.UploadTime
