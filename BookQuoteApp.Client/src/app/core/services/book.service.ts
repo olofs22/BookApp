@@ -8,6 +8,7 @@ export interface Book {
     authorName: string;
     publisherName: string | null;
     publishDate: string;
+    userId: string;
 }
 
 @Injectable({providedIn: 'root'})
