@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BookService, Book } from '../../../core/services/book.service';
+import { AuthService } from '../../../core/services/auth.service';
 @Component({
   selector: 'app-book-list',
   standalone: true,
@@ -12,8 +13,15 @@ import { BookService, Book } from '../../../core/services/book.service';
 export class BookList implements OnInit{
   books: Book[] = [];
 
-  constructor(private bookService: BookService) {}
+  constructor(
+    private bookService: BookService,
+    private authService: AuthService) {}
 
+
+  isOwner(book: Book): boolean {
+    return book.userId === this.authService.getUserId();
+  }
+  
   ngOnInit() {
     this.loadBooks();
   }

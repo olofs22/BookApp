@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BookQuoteApp.Api.Data;
+using BookQuoteApp.Api.DTOs;
+using BookQuoteApp.Api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using BookQuoteApp.Api.Data;
-using BookQuoteApp.Api.Models;
-using BookQuoteApp.Api.DTOs;
+using System.Security.Claims;
 
 
 namespace BookQuoteApp.Api.Controllers
@@ -14,7 +15,10 @@ namespace BookQuoteApp.Api.Controllers
     public class BooksController : ControllerBase
     {
         private readonly ApplicationDbContext _dbContext;
-
+        private string GetUserId()
+        {
+            return User.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
+        }
         public BooksController(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -82,7 +86,8 @@ namespace BookQuoteApp.Api.Controllers
                 Title = cDTO.Title,
                 AuthorId = author.Id,
                 PublisherId = publisher?.Id,
-                PublishDate = cDTO.PublishDate
+                PublishDate = cDTO.PublishDate,
+                UserId = GetUserId()
             };
             _dbContext.Books.Add(book);
             await _dbContext.SaveChangesAsync();
@@ -101,7 +106,10 @@ namespace BookQuoteApp.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBook(int id, UpdateBookDTO uDTO)
         {
-            var book = await _dbContext.Books.FirstOrDefaultAsync(b => b.Id == id);
+            var userId = GetUserId();
+
+            var book = await _dbContext.Books.FirstOrDefaultAsync(b => b.Id == id && b.UserId == userId);
+
             if (book == null)
                 return NotFound();
 
@@ -128,13 +136,16 @@ namespace BookQuoteApp.Api.Controllers
             book.PublisherId = publisher?.Id;
             book.PublishDate = uDTO.PublishDate;
 
+
             await _dbContext.SaveChangesAsync();
             return NoContent();
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBook(int id)
         {
-            var book = await _dbContext.Books.FirstOrDefaultAsync(b => b.Id == id);
+            var userId = GetUserId();
+
+            var book = await _dbContext.Books.FirstOrDefaultAsync(b => b.Id == id && b.UserId == userId);
             if (book == null)
                 return NotFound();
 

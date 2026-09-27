@@ -26,12 +26,14 @@
                     <td>{{ book.publisherName || '-' }}</td>
                     <td>{{ book.publishDate | date:'yyyy-MM-dd' }}</td>
                     <td class="text-end">
-                        <a [routerLink]="['/books/edit', book.id]" class="btn btn-sm btn-outline-primary me-2">
-                            <i class="fa-solid fa-pen"></i>Edit
-                        </a>
-                        <button (click)="deleteBooks(book.id)" class="btn btn-sm btn-outline-danger">
-                            <i class="fa-solid fa-trash"></i> Delete
-                        </button>
+                            <ng-container *ngIf="isOwner(book)">
+                            <a [routerLink]="['/books/edit', book.id]" class="btn btn-sm btn-outline-primary me-2">
+                                <i class="fa-solid fa-pen"></i>Edit
+                            </a>
+                            <button (click)="deleteBooks(book.id)" class="btn btn-sm btn-outline-danger">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </button>
+                        </ng-container>
                     </td>
                 </tr>
             </tbody>
