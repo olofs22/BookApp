@@ -1,13 +1,81 @@
+:root {
+  --bs-font-sans-serif: 'Inter', system-ui, sans-serif;
+  --bs-body-font-family: 'Inter', system-ui, sans-serif;
+
+  --bs-primary: #b5651d;
+  --bs-primary-rgb: 181, 101, 29;
+
+  --bs-success: #4a7c59;
+  --bs-success-rgb: 74, 124, 89;
+
+  --bs-danger: #a8433a;
+  --bs-danger-rgb: 168, 67, 58;
+
+  --bs-border-radius: 0.6rem;
+  --bs-border-radius-sm: 0.4rem;
+  --bs-border-radius-lg: 0.9rem;
+}
+
 html, body {
   height: 100%;
+  margin: 0;
 }
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+
 app-root {
   display: flex;
   flex-direction: column;
+  flex: 1;
+}
+
+body {
+  font-family: var(--bs-body-font-family);
+  letter-spacing: -0.01em;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f3e5ce;
+}
+
+html[data-bs-theme="dark"] body {
+  background-color: #1c1917;
+}
+
+.card {
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+html[data-theme="dark"] .card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  background-color: #292524;
+}
+
+html[data-theme="dark"] .card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+.btn {
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+
+.btn-primary {
+  border: none;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--bs-primary) !important;
+}
+
+router-outlet + * {
   flex: 1;
 }

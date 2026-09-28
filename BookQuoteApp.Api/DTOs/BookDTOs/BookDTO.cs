@@ -8,5 +8,6 @@
         public string PublisherName { get; set; }
         public DateTime PublishDate { get; set; }
         public string UserId { get; set; }
+        public string? UserName {get; set;}
     }
 }

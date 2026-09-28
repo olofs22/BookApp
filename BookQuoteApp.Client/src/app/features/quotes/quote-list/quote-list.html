@@ -2,11 +2,14 @@
 
   <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
     <h2 class="mb-0">
-      <i class="fa-solid fa-quote-left"></i> Mina citat
+      <i class="fa-solid fa-quote-left"></i> My 5 favorite quotes!
     </h2>
-    <a routerLink="/quotes/add" class="btn btn-success">
-      <i class="fa-solid fa-plus"></i> Lägg till citat
+    <a *ngIf="quotes.length < 5" routerLink="/quotes/add" class="btn btn-success">
+      <i class="fa-solid fa-plus"></i> Add a quote
     </a>
+    <span *ngIf="quotes.length >= 5" class="text-muted-small">
+      <i class="fa-solid fa-circle-info"></i> Five quote limit
+    </span>
   </div>
 
   <div class="row g-3">
@@ -21,10 +24,10 @@
 
           <div class="mt-auto d-flex gap-2">
             <a [routerLink]="['/quotes/edit', quote.id]" class="btn btn-sm btn-outline-primary">
-              <i class="fa-solid fa-pen"></i> Redigera
+              <i class="fa-solid fa-pen"></i> Edit
             </a>
             <button (click)="deleteQuote(quote.id)" class="btn btn-sm btn-outline-danger">
-              <i class="fa-solid fa-trash"></i> Radera
+              <i class="fa-solid fa-trash"></i> Delete
             </button>
           </div>
         </div>
@@ -33,7 +36,7 @@
   </div>
 
   <p *ngIf="quotes.length === 0" class="text-center text-muted py-4">
-    Inga citat tillagda än.
+    No quotes added yet...
   </p>
 
 </div>

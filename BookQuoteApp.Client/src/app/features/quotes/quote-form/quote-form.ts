@@ -60,7 +60,7 @@ export class QuoteForm implements OnInit {
           bookId: quote.bookid
         });
       },
-      error: () => this.errorMessage = 'Kunde inte hämta citatet'
+      error: () => this.errorMessage = 'Unable to fetch the quote'
     });
   }
 
@@ -75,12 +75,13 @@ export class QuoteForm implements OnInit {
     if (this.isEditMode && this.quoteId) {
       this.quoteService.update(this.quoteId, data).subscribe({
         next: () => this.router.navigate(['/quotes']),
-        error: () => this.errorMessage = 'Kunde inte uppdatera citatet'
+        error: () => this.errorMessage = 'Unable to update the quote'
       });
     } else {
       this.quoteService.create(data).subscribe({
         next: () => this.router.navigate(['/quotes']),
-        error: () => this.errorMessage = 'Kunde inte skapa citatet'
+        error: (err) => this.errorMessage =
+          typeof err.error === 'string' ? err.error : 'Unable to create quote'
       });
     }
   }
