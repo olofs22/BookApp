@@ -6,6 +6,7 @@
     </a>
 
     <button
+      *ngIf="authService.isLoggedIn()"
       class="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
@@ -17,16 +18,16 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarContent">
+    <div class="collapse navbar-collapse" id="navbarContent" *ngIf="authService.isLoggedIn()">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link" routerLink="/books" routerLinkActive="active">
-            <i class="fa-solid fa-book"></i> Böcker
+            <i class="fa-solid fa-book"></i> Books
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/quotes" routerLinkActive="active">
-            <i class="fa-solid fa-quote-left"></i> Mina citat
+            <i class="fa-solid fa-quote-left"></i> My quotes
           </a>
         </li>
       </ul>
