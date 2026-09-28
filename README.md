@@ -7,8 +7,6 @@ A responsive CRUD web application for books and favourite quotes, built with **A
 - Frontend: https://icy-stone-056cf8d0f.3.azurestaticapps.net
 - Backend (Swagger): https://bookappbackend-eda3cga0fkg5a0hj.swedencentral-01.azurewebsites.net/swagger
 
-> The database is Azure SQL Serverless with auto-pause. If nobody has used the app for a while, the first request can take 20-60 seconds while the database wakes up. Wait a moment and try again.
-
 ## Features
 
 - Register an account and log in (JWT)
