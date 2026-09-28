@@ -76,6 +76,10 @@ namespace BookQuoteApp.Api.Controllers
         {
             var userId = GetUserId();
 
+            var count = await _dbContext.Quotes.CountAsync(q => q.UserId == userId);
+                if(count >= 5)
+                    return BadRequest("You can't add five or more quotes to this list! Delete one to add another!");
+
             var bookExists = await _dbContext.Books.AnyAsync(b => b.Id == cqDTO.BookId);
             if (!bookExists)
                 return BadRequest("Book not found");

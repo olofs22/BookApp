@@ -4,6 +4,7 @@ using BookQuoteApp.Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Security.Claims;
 
 
@@ -26,7 +27,7 @@ namespace BookQuoteApp.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var books = await _dbContext.Books.Include(b => b.Author).Include(b => b.Publisher).ToListAsync();
+            var books = await _dbContext.Books.Include(b => b.Author).Include(b => b.Publisher).Include(b=> b.User).ToListAsync();
             var bookDtos = books.Select(b => new BookDTO
             {
                 Id = b.Id,
@@ -34,7 +35,8 @@ namespace BookQuoteApp.Api.Controllers
                 AuthorName = b.Author.Name,
                 PublisherName = b.Publisher != null ? b.Publisher.Name : null,
                 PublishDate = b.PublishDate,
-                UserId = b.UserId
+                UserId = b.UserId,
+                UserName = b.User?.Name
             }).ToList();
 
             return Ok(bookDtos);
@@ -54,7 +56,9 @@ namespace BookQuoteApp.Api.Controllers
                 AuthorName = book.Author.Name,
                 PublisherName = book.Publisher != null ? book.Publisher.Name : null,
                 PublishDate = book.PublishDate,
-                UserId = book.UserId
+                UserId = book.UserId,
+                UserName = book.User?.Name
+
             };
 
             return Ok(bookDTO); 
@@ -94,6 +98,8 @@ namespace BookQuoteApp.Api.Controllers
             _dbContext.Books.Add(book);
             await _dbContext.SaveChangesAsync();
 
+            var owner = await _dbContext.Users.FindAsync(book.UserId);
+
             var bookDto = new BookDTO
             {
                 Id = book.Id,
@@ -101,7 +107,8 @@ namespace BookQuoteApp.Api.Controllers
                 AuthorName = author.Name,
                 PublisherName = publisher?.Name,
                 PublishDate = book.PublishDate,
-                UserId = book.UserId
+                UserId = book.UserId,
+                UserName = owner?.Name
             };
 
             return CreatedAtAction(nameof(GetById), new { id = book.Id }, bookDto);
