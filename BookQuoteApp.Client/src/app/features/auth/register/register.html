@@ -33,7 +33,20 @@
         class="form-control"
         formControlName="password"
         />
-        <div class="form-text">Min. 6 characters</div>
+        <ul class="list-unstyled small mt-2 mb-0">
+            <li [class.text-success]="hasLength" [class.text-muted]="!hasLength">
+                <i class="fa-solid" [class.fa-circle-check]="hasLength" [class.fa-circle]="!hasLength"></i>
+                Min. 8 characters
+            </li>
+            <li [class.text-success]="hasUpper" [class.text-muted]="!hasUpper">
+                <i class="fa-solid" [class.fa-circle-check]="hasUpper" [class.fa-circle]="!hasUpper"></i>
+                One capital letter
+            </li>
+            <li [class.text-success]="hasDigit" [class.text-muted]="!hasDigit">
+                <i class="fa-solid" [class.fa-circle-check]="hasDigit" [class.fa-circle]="!hasDigit"></i>
+                One digit
+            </li>
+</ul>
     </div>
 
     <div class="alert alert-danger py-2" *ngIf="errorMessage">

@@ -16,6 +16,13 @@ export class Register {
     registerForm: FormGroup;
     errorMessage = '';
 
+    get pw(): string {
+  return this.registerForm.get('password')?.value ?? '';
+    }
+    get hasLength(): boolean { return this.pw.length >= 8; }
+    get hasUpper(): boolean { return /[A-Z]/.test(this.pw); }
+    get hasDigit(): boolean { return /\d/.test(this.pw); }
+
     constructor(
         private fb: FormBuilder,
         private authService: AuthService,
@@ -24,7 +31,7 @@ export class Register {
         this.registerForm = this.fb.group({
             name: ['', Validators.required],
             email: ['', Validators.required, Validators.email],
-            password: ['', Validators.required, Validators.minLength(6)]
+            password: ['', Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Z])(?=.*\d).+$/)]
         });
     }
     onSubmit() {
@@ -32,7 +39,7 @@ export class Register {
 
         this.authService.register(this.registerForm.value as {name: string; email: string; password: string;}).subscribe({
             next: () => this.router.navigate(['./login']),
-            error: () => this.errorMessage = 'Regsitration failed'
+            error: (err) => this.errorMessage = Array.isArray(err.error) ? err.error.map((e: any) => e.description).join('') : 'Regsitration failed'
         });
     }
 }
